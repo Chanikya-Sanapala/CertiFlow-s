@@ -233,7 +233,8 @@ export class BatchesController {
             district: trainingCentreDistrict,
             totalCandidates: validatedRows.length,
             passedCandidates: validatedRows.filter((r) => r.hasPassed).length,
-            status: BatchStatus.DRAFT,
+            status: BatchStatus.UNDER_DISTRICT_REVIEW,
+            submittedAt: new Date(),
             isFlaggedForQuality,
             qualityReason: isFlaggedForQuality
               ? `Large batch (${validatedRows.length} candidates >= ${QUALITY_REVIEW_THRESHOLD} threshold) requires Quality Team scrutiny`

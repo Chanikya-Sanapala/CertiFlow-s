@@ -15,6 +15,7 @@ import {
   UserCheck,
   RotateCcw,
   ExternalLink,
+  Info,
 } from "lucide-react";
 
 export const BatchDetailPage: React.FC = () => {
@@ -300,6 +301,88 @@ export const BatchDetailPage: React.FC = () => {
             Policy Note: Prior approvals have been invalidated. Please review candidate records and
             re-submit.
           </p>
+        </div>
+      )}
+
+      {/* Current Workflow Stage Guidance Banner */}
+      {batch.status === "UNDER_DISTRICT_REVIEW" && (
+        <div className="p-4 rounded-xl bg-blue-50/90 border border-blue-200 text-blue-950 text-xs flex items-start gap-3 shadow-xs">
+          <Info size={18} className="text-blue-600 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <div className="font-bold text-blue-950">
+              Stage 2: District Quorum Verification ({quorumCount}/2 Endorsements Recorded)
+            </div>
+            <p className="text-slate-700">
+              This batch requires endorsement by two independent District Officers before advancing.
+              {role === "DISTRICT_OFFICER" ? (
+                hasUserAlreadyApproved ? (
+                  <span className="font-semibold text-emerald-700"> You have already endorsed this batch. Awaiting second officer endorsement.</span>
+                ) : (
+                  <span className="font-semibold text-blue-800"> Please review candidate scores below and click "Endorse Batch" at top-right.</span>
+                )
+              ) : (
+                <span className="block mt-1 text-slate-600">
+                  To endorse, sign in as <strong>district.officer1@certiflow.gov</strong> or <strong>district.officer2@certiflow.gov</strong>.
+                </span>
+              )}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {batch.status === "UNDER_QUALITY_REVIEW" && (
+        <div className="p-4 rounded-xl bg-amber-50/90 border border-amber-200 text-amber-950 text-xs flex items-start gap-3 shadow-xs">
+          <ShieldCheck size={18} className="text-amber-600 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <div className="font-bold text-amber-950">
+              Stage 3: Mandatory Quality Audit Required (Cohort Size: {batch.totalCandidates} Candidates)
+            </div>
+            <p className="text-slate-700">
+              Batches with 20 or more candidates require independent quality scrutiny of scoring and attendance.
+              {role === "QUALITY_TEAM" ? (
+                <span className="font-semibold text-amber-900"> Please audit candidate scores below and click "Verify & Pass Quality Audit".</span>
+              ) : (
+                <span className="block mt-1 text-slate-600">
+                  To complete this review, sign in as <strong>quality.reviewer@certiflow.gov</strong>.
+                </span>
+              )}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {batch.status === "UNDER_STATE_REVIEW" && (
+        <div className="p-4 rounded-xl bg-purple-50/90 border border-purple-200 text-purple-950 text-xs flex items-start gap-3 shadow-xs">
+          <Award size={18} className="text-purple-600 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <div className="font-bold text-purple-950">
+              Stage 4: State Director Final Authorization Ready (Trigger for Certificate Issuance)
+            </div>
+            <p className="text-slate-700">
+              All district and quality approvals are complete.
+              {role === "STATE_OFFICE" ? (
+                <span className="font-semibold text-emerald-800"> Click "Authorize & Issue Certificates" at top-right to generate PDF certificates with QR codes and queue simulated WhatsApp delivery.</span>
+              ) : (
+                <span className="block mt-1 text-slate-600">
+                  Sign in as <strong>state.director@certiflow.gov</strong> to authorize certificate issuance.
+                </span>
+              )}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {batch.status === "APPROVED" && (
+        <div className="p-4 rounded-xl bg-emerald-50/90 border border-emerald-200 text-emerald-950 text-xs flex items-start gap-3 shadow-xs">
+          <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <div className="font-bold text-emerald-950">
+              Certificates Issued & Publicly Verifiable
+            </div>
+            <p className="text-slate-700">
+              All certificates have been minted, cryptographically signed, and registered in the public registry. Download PDFs below or search credentials on the public portal.
+            </p>
+          </div>
         </div>
       )}
 

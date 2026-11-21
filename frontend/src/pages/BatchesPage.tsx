@@ -348,9 +348,23 @@ export const BatchesPage: React.FC = () => {
                       </td>
                       <td className="py-4 px-5 text-right">
                         <Link to={`/batches/${batch.id}`}>
-                          <Button size="sm" variant="secondary" icon={<ArrowRight size={13} />}>
-                            View
-                          </Button>
+                          {user?.role === "DISTRICT_OFFICER" && batch.status === "UNDER_DISTRICT_REVIEW" ? (
+                            <Button size="sm" variant="primary" icon={<ArrowRight size={13} />}>
+                              Review & Endorse
+                            </Button>
+                          ) : user?.role === "QUALITY_TEAM" && batch.status === "UNDER_QUALITY_REVIEW" ? (
+                            <Button size="sm" variant="primary" icon={<ArrowRight size={13} />}>
+                              Audit & Pass
+                            </Button>
+                          ) : user?.role === "STATE_OFFICE" && batch.status === "UNDER_STATE_REVIEW" ? (
+                            <Button size="sm" variant="primary" className="bg-emerald-700 hover:bg-emerald-800 border-emerald-700 text-white" icon={<ArrowRight size={13} />}>
+                              Authorize & Issue
+                            </Button>
+                          ) : (
+                            <Button size="sm" variant="secondary" icon={<ArrowRight size={13} />}>
+                              View
+                            </Button>
+                          )}
                         </Link>
                       </td>
                     </tr>
