@@ -9,13 +9,12 @@ import {
   Search,
   AlertTriangle,
   Download,
-  Sparkles,
   ArrowLeft,
 } from "lucide-react";
 
 export const VerificationPage: React.FC = () => {
   const { certificateNumber: paramCertNumber } = useParams<{ certificateNumber: string }>();
-  const [certNumberInput, setCertNumberInput] = useState(paramCertNumber || "CRT-2026-DEMO01");
+  const [certNumberInput, setCertNumberInput] = useState(paramCertNumber || "");
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
@@ -47,8 +46,6 @@ export const VerificationPage: React.FC = () => {
     if (paramCertNumber) {
       setCertNumberInput(paramCertNumber);
       performVerification(paramCertNumber);
-    } else {
-      performVerification("CRT-2026-DEMO01");
     }
   }, [paramCertNumber]);
 
@@ -101,7 +98,7 @@ export const VerificationPage: React.FC = () => {
                 type="text"
                 value={certNumberInput}
                 onChange={(e) => setCertNumberInput(e.target.value)}
-                placeholder="Enter Certificate ID (e.g. CRT-2026-DEMO01)"
+                placeholder="Enter Certificate ID (e.g. CRT-2026-N8X92K)"
                 className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl bg-white border border-[#CED4DA] focus:border-[#1F2E4A] outline-none shadow-xs text-[#1F2E4A] font-medium"
               />
             </div>
@@ -115,43 +112,28 @@ export const VerificationPage: React.FC = () => {
             </Button>
           </form>
 
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs">
-            <span className="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
-              <Sparkles size={12} className="text-amber-500" />
-              Test Examples:
+          <div className="pt-2 text-center text-xs text-slate-500">
+            <span className="inline-flex items-center justify-center gap-1.5 font-medium text-slate-600">
+              <ShieldCheck size={14} className="text-emerald-600" />
+              Scan the QR code on any official Pragati certificate or enter the Certificate ID above.
             </span>
-            <button
-              type="button"
-              onClick={() => {
-                setCertNumberInput("CRT-2026-DEMO01");
-                performVerification("CRT-2026-DEMO01");
-              }}
-              className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold hover:bg-emerald-100 transition-colors cursor-pointer"
-            >
-              Valid Certificate (DEMO01)
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setCertNumberInput("CRT-2026-REVOKED");
-                performVerification("CRT-2026-REVOKED");
-              }}
-              className="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-800 border border-rose-200 text-xs font-semibold hover:bg-rose-100 transition-colors cursor-pointer"
-            >
-              Revoked Certificate (REVOKED)
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setCertNumberInput("CRT-FAKE-12345");
-                performVerification("CRT-FAKE-12345");
-              }}
-              className="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 text-xs font-semibold hover:bg-slate-200 transition-colors cursor-pointer"
-            >
-              Invalid / Fake ID
-            </button>
           </div>
         </div>
+
+        {!hasSearched && (
+          <div className="glass-panel rounded-3xl p-8 border border-[#CED4DA]/50 shadow-xs text-center space-y-3 max-w-xl mx-auto animate-in fade-in duration-200">
+            <div className="w-12 h-12 rounded-2xl bg-[#1F2E4A]/10 text-[#1F2E4A] flex items-center justify-center mx-auto">
+              <Search size={22} className="text-[#1F2E4A]" />
+            </div>
+            <h3 className="text-base font-bold text-[#1F2E4A]">
+              Instant Credential Lookup
+            </h3>
+            <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+              Pragati Skills Mission maintains an authoritative, tamper-proof state registry. 
+              Enter a certificate number above or scan the embedded QR code on any issued certificate to confirm its authenticity.
+            </p>
+          </div>
+        )}
 
         {hasSearched && (
           <div className="animate-in fade-in duration-300">
