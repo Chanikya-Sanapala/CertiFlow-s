@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #1F2E4A;
+  --color-navy-dark: #141E30;
+  --color-navy-light: #2A3F66;
+  --color-charcoal: #343A40;
+  --color-soft-grey: #CED4DA;
+  --color-off-white: #F8F9FA;
+  --color-glass-border: rgba(206, 212, 218, 0.45);
+}
+
+@layer base {
+  body {
+    background-color: #F8F9FA;
+    color: #343A40;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+/* Apple Liquid Glass Utility Styles */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.80);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(206, 212, 218, 0.5);
+  box-shadow: 0 4px 20px -2px rgba(31, 46, 74, 0.05);
+}
+
+.glass-toolbar {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(206, 212, 218, 0.55);
+  box-shadow: 0 6px 24px -3px rgba(31, 46, 74, 0.06);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(206, 212, 218, 0.5);
+  box-shadow: 0 2px 12px -1px rgba(31, 46, 74, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(31, 46, 74, 0.3);
+  box-shadow: 0 8px 24px -4px rgba(31, 46, 74, 0.08);
+}
