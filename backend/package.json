@@ -9,6 +9,8 @@
     "db:clean": "tsx src/clean.ts",
     "test:moments": "tsx test/moments.test.ts",
     "test:audit": "tsx test/security_audit.test.ts",
+    "test:auth": "tsx test/auth.test.ts",
+    "test:pre-submission": "tsx test/pre_submission_audit.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "db:generate": "prisma generate",
