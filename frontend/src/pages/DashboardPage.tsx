@@ -39,6 +39,14 @@ export const DashboardPage: React.FC = () => {
       }
     };
     fetchDashboard();
+
+    const handleFocus = () => {
+      fetchDashboard();
+    };
+    window.addEventListener("focus", handleFocus);
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
   }, [user?.id, user?.role, isLoading]);
 
   if (loading) {
